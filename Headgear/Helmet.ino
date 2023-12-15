@@ -26,7 +26,7 @@ RF24 radio(9, 10); // NRF24L01 used SPI pins + Pin 9 and 10 on the NANO
 const uint64_t pipe = 0xE6E6E6E6E6E6; // Needs to be the same for communicating between 2 NRF24L01
 
 Adafruit_MPU6050 mpu;
-float accl[4];
+float accl[7];
 
 
 /*//////////////////////////////////variable declaration of GPS module starting/////////////////////////////*/
@@ -178,7 +178,7 @@ void loop(void) {
   
   
     /*///////////////////////////////// BMP180 module running begining code ///////////////////////////////////////////// */
-   Serial.print("Temperature = ");
+    Serial.print("Temperature = ");
     Serial.print(bmp.readTemperature());
     Serial.println(" *C");
   
@@ -196,27 +196,19 @@ void loop(void) {
     sensors_event_t a, g, temp;
     mpu.getEvent(&a, &g, &temp);
   
-    // float text1,text2,text3;
+    
     accl[0] = a.acceleration.x;
     accl[1] = a.acceleration.y;
-    accl[2] = a.acceleration.z;
-    accl[3] = temp.temperature;
+    accl[2] = gps.location.lat();
+    accl[3] = gps.location.lng();
+    //accl[4] = temp.temperature;
+    accl[4] = ppm;
+    accl[5] = bmp.readTemperature();
+    accl[6] = bmp.readPressure();
+    
   
     radio.write(accl, sizeof(accl));
-  
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print(a.acceleration.x);
-  
-    lcd.setCursor(0, 1);
-    lcd.print(a.acceleration.y);
-  
-  
-    lcd.setCursor(5, 0);
-    lcd.print(a.acceleration.z);
-  
-    lcd.setCursor(5, 1);
-    lcd.print(temp.temperature);
+    //delay (1000);
   
   }
 
@@ -250,7 +242,7 @@ void displayInfo() {
 
 
   Serial.println();
-  delay (1000);
+  //delay (1000);
 
 }
 

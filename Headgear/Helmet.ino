@@ -1,8 +1,8 @@
 
 //Include needed Libraries at beginning
-#include "nRF24L01.h" //NRF24L01 library created by TMRh20 https://github.com/TMRh20/RF24
-#include "RF24.h"
-#include "SPI.h"
+#include <nRF24L01.h> //NRF24L01 library created by TMRh20 https://github.com/TMRh20/RF24
+#include <RF24.h>
+#include <SPI.h>
 
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
@@ -12,8 +12,9 @@
 #include <LiquidCrystal_I2C.h>
 
 //for GPS module libray files
-#include <TinyGPS++.h>
 #include <SoftwareSerial.h>
+#include <TinyGPS++.h>
+
 
 //For BMP180 library
 #include <Adafruit_BMP085.h>
@@ -54,54 +55,57 @@ Adafruit_BMP085 bmp;
 
 /*//////////////////////////////////variable declaration of BMP180 module starting/////////////////////////////*/
 
-
+////////////////////////////////////////////////
+static int last_time = millis();
+int current_time = millis();
+////////////////////////////////////////////
 
 void setup(void) {
-  
- Serial.begin(115200);
 
- lcd.init();
- lcd.backlight();
- lcd.setCursor(0, 0);
- lcd.print("Initializing..."); 
-// lcd.print("Initializinglcd.setCursor(0, 1)");
-// lcd.print("Transmitterdelay(2000)");
-// delay(2000);
+  Serial.begin(115200);
+
+//  lcd.begin();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Initializing...");
+  // lcd.print("Initializinglcd.setCursor(0, 1)");
+  // lcd.print("Transmitterdelay(2000)");
+  // delay(2000);
 
 
-/* ////////////////////////////GPS module void setup part starting //////////////////////////////////////////////*/
-//Serial.begin(115200);
+  /* ////////////////////////////GPS module void setup part starting //////////////////////////////////////////////*/
+  //Serial.begin(115200);
   ss.begin(GPSBaud);
 
-/* ////////////////////////////GPS module void setup part ending //////////////////////////////////////////////*/
+  /* ////////////////////////////GPS module void setup part ending //////////////////////////////////////////////*/
 
 
-/* ////////////////////////////MQ135 module void setup part starting //////////////////////////////////////////////*/
-  
-  pinMode (aqsensor,INPUT); // MQ135 is connected as INPUT to arduino
-  
-/* ////////////////////////////MQ135 module void setup part ending //////////////////////////////////////////////*/
+  /* ////////////////////////////MQ135 module void setup part starting //////////////////////////////////////////////*/
+
+  pinMode (aqsensor, INPUT); // MQ135 is connected as INPUT to arduino
+
+  /* ////////////////////////////MQ135 module void setup part ending //////////////////////////////////////////////*/
 
 
-/* ////////////////////////////BMP180 module void setup part starting //////////////////////////////////////////////*/
-if (!bmp.begin()) {
-  Serial.println("Could not find a valid BMP085 sensor, check wiring!");
-  while (1) {}
+  /* ////////////////////////////BMP180 module void setup part starting //////////////////////////////////////////////*/
+  if (!bmp.begin()) {
+    Serial.println("Could not find a valid BMP085 sensor, check wiring!");
+    while (1) {}
   }
-/* ////////////////////////////BMP180 module void setup part ending //////////////////////////////////////////////*/
+  /* ////////////////////////////BMP180 module void setup part ending //////////////////////////////////////////////*/
 
- Wire.begin();
- //mpu.begin();
+  Wire.begin();
+  //mpu.begin();
 
   // Try to initialize!
- if (!mpu.begin()) 
- {
+  if (!mpu.begin())
+  {
     lcd.println("Failed find MPU");
-    while (1) 
+    while (1)
     {
       delay(10);
     }
- }
+  }
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.println("MPU6050 Found!");
@@ -119,133 +123,106 @@ if (!bmp.begin()) {
   delay(100);
 
 
- radio.begin(); // Start the NRF24L01
- 
- // Max power
- //radio.setPALevel( RF24_PA_MAX ) ;
+  radio.begin(); // Start the NRF24L01
 
- // Min speed (for better range I presume)
- radio.setDataRate( RF24_250KBPS ) ;
+  // Max power
+  radio.setPALevel( RF24_PA_MAX ) ;
 
- // 8 bits CRC
- // radio.setCRCLength( RF24_CRC_8 ) ;
+  // Min speed (for better range I presume)
+  radio.setDataRate( RF24_250KBPS ) ;
 
- // increase the delay between retries & # of retries
- //radio.setRetries(15, 15);
- radio.setAutoAck(false);
- radio.openWritingPipe(pipe); // Get NRF24L01 ready to transmit
+  // 8 bits CRC
+  // radio.setCRCLength( RF24_CRC_8 ) ;
+
+  // increase the delay between retries & # of retries
+  //radio.setRetries(15, 15);
+  radio.setAutoAck(false);
+  radio.openWritingPipe(pipe); // Get NRF24L01 ready to transmit
 
 }
-
-
-
 
 
 void loop(void) {
 
-/*//////////////////////////////// GPS module running code begining ///////////////////////////////////////*/
-  while (ss.available() > 0)
-    if (gps.encode(ss.read()))
+  /*//////////////////////////////// GPS module running code begining ///////////////////////////////////////*/
+  while (ss.available() > 0) {
+    if (gps.encode(ss.read())) {
+      if (current_time - last_time >= 5000 && gps.charsProcessed() < 10)
+      {
+        Serial.println(F("No GPS detected: check wiring."));
+        while (true);
+      }
+
       displayInfo();
-
-  if (millis() > 5000 && gps.charsProcessed() < 10)
-  {
-    Serial.println(F("No GPS detected: check wiring."));
-    while(true);
-  }
-
-/*///////////////////////////////// GPS module running code ///////////////////////////////////////////// */
-
-
-/*//////////////////////////////// MQ135 module running code begining ///////////////////////////////////////*/
-  int ppm = analogRead(aqsensor); //read MQ135 analog outputs at A0 and store it in ppm
-
-  Serial.print("Air Quality: ");  //print message in serail monitor
-  Serial.println(ppm);            //print value of ppm in serial monitor
-
-  //lcd.setCursor(0,0);             // set cursor of lcd to 1st row and 1st column
-  //lcd.print("Air Qualit: ");      // print message on lcd
-  //lcd.print(ppm);                 // print value of MQ135
-
-  if (ppm > threshold)            // check is ppm is greater than threshold or not
-    {
-      //lcd.setCursor(1,1);         //jump here if ppm is greater than threshold
-      //lcd.print("AQ Level HIGH");
-      Serial.println("AQ Level HIGH");     
-      //tone(led,1000,200);         //blink led with turn on time 1000mS, turn off time 200mS
-      //digitalWrite(buz,HIGH);     //Turn ON Buzzer
     }
-  else
+  }
+  /*///////////////////////////////// GPS module running code ///////////////////////////////////////////// */
+
+
+  /*//////////////////////////////// MQ135 module running code begining ///////////////////////////////////////*/
+    int ppm = analogRead(aqsensor); //read MQ135 analog outputs at A0 and store it in ppm
+  
+    Serial.print("Air Quality: ");  //print message in serail monitor
+    Serial.println(ppm);            //print value of ppm in serial monitor
+  
+    if (ppm > threshold)            // check is ppm is greater than threshold or not
     {
-      //digitalWrite(led,LOW);   //jump here if ppm is not greater than threshold and turn off LED
-      //digitalWrite(buz,LOW);   //Turn off Buzzer
-      //lcd.setCursor(1,1);
-      //lcd.print ("AQ Level Good");
+      Serial.println("AQ Level HIGH");
+    }
+    else
+    {
       Serial.println("AQ Level Good");
-    }  
- // delay (500);
-/*///////////////////////////////// MQ135 module running code ///////////////////////////////////////////// */
-
-
-/*///////////////////////////////// BMP180 module running begining code ///////////////////////////////////////////// */
-    Serial.print("Temperature = ");
+    }
+    // delay (500);
+    /*///////////////////////////////// MQ135 module running code ///////////////////////////////////////////// */
+  
+  
+    /*///////////////////////////////// BMP180 module running begining code ///////////////////////////////////////////// */
+   Serial.print("Temperature = ");
     Serial.print(bmp.readTemperature());
     Serial.println(" *C");
-    
+  
     Serial.print("Pressure = ");
     Serial.print(bmp.readPressure());
     Serial.println(" Pa");
 
-    Serial.print("Altitude = ");
-    Serial.print(bmp.readAltitude());
-    Serial.println(" meters");
-
-    Serial.print("Pressure at sealevel (calculated) = ");
-    Serial.print(bmp.readSealevelPressure());
-    Serial.println(" Pa");
-
-    Serial.print("Real altitude = ");
-    Serial.print(bmp.readAltitude(seaLevelPressure_hPa * 100));
-    Serial.println(" meters");
-    
-    Serial.println();
-    delay(500);
-/*///////////////////////////////// BMP180 module running begining code ///////////////////////////////////////////// */
-
-
-/* Get new sensor events with the readings */
-sensors_event_t a, g, temp;
-mpu.getEvent(&a, &g, &temp);
-
-// float text1,text2,text3;
-accl[0]=a.acceleration.x;
-accl[1]=a.acceleration.y;
-accl[2]=a.acceleration.z;
-accl[3]=temp.temperature;
-
-radio.write(accl, sizeof(accl));
-
-lcd.clear();
-lcd.setCursor(0, 0);
-lcd.print(a.acceleration.x);
-
-lcd.setCursor(0, 1);
-lcd.print(a.acceleration.y);
-
-
-lcd.setCursor(5, 0);
-lcd.print(a.acceleration.z);
-
-lcd.setCursor(5, 1);
-lcd.print(temp.temperature);
-
-}
-
+     Serial.println();
+     
+    //delay(500);
+    /*///////////////////////////////// BMP180 module running begining code ///////////////////////////////////////////// */
+  
+  
+    /* Get new sensor events with the readings */
+    sensors_event_t a, g, temp;
+    mpu.getEvent(&a, &g, &temp);
+  
+    // float text1,text2,text3;
+    accl[0] = a.acceleration.x;
+    accl[1] = a.acceleration.y;
+    accl[2] = a.acceleration.z;
+    accl[3] = temp.temperature;
+  
+    radio.write(accl, sizeof(accl));
+  
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(a.acceleration.x);
+  
+    lcd.setCursor(0, 1);
+    lcd.print(a.acceleration.y);
+  
+  
+    lcd.setCursor(5, 0);
+    lcd.print(a.acceleration.z);
+  
+    lcd.setCursor(5, 1);
+    lcd.print(temp.temperature);
+  
+  }
 
 /*//////////////////////////////// GPS module function begining ///////////////////////////////////////*/
-void displayInfo()
-{
-  Serial.print(F("Location: ")); 
+void displayInfo() {
+  Serial.print(F("Location: "));
   if (gps.location.isValid())
   {
     Serial.print(gps.location.lat(), 6);
@@ -271,13 +248,10 @@ void displayInfo()
     Serial.print(F("INVALID"));
   }
 
-  
-  Serial.println();
-         //delay (10000);
 
-  }
+  Serial.println();
+  delay (1000);
+
+}
 
 /*//////////////////////////////// GPS module function begining ///////////////////////////////////////*/
-
-
-

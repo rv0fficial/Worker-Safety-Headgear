@@ -12,7 +12,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 4);
 RF24 radio(9, 10); // NRF24L01 used SPI pins + Pin 9 and 10 on the UNO
 const uint64_t pipe = 0xE6E6E6E6E6E6; // Needs to be the same for communicating between 2 NRF24L01
 
-float accl[4]; //accleration and the temperatur
+float accl[7]; //accleration and the temperatur
 
 int upButton = 7;
 int downButton = 6;
@@ -673,9 +673,9 @@ void loop() { //LOOP
       lcd.print(accl[1]);
 
       lcd.setCursor(-4,2);
-      lcd.print("Dist:");
+      lcd.print("Air:");
       lcd.setCursor(1,2);
-      lcd.print(accl[2]);
+      lcd.print(accl[4]);
        //delay(1000);
  }
 
@@ -740,12 +740,27 @@ void executeAction() {
 void action1() {
   lcd.clear();
   
-  lcd.print("  > 1st Page <");
+  lcd.setCursor(0, 0);
+  lcd.print("Tmp:");
+  lcd.setCursor(5, 0);
+  lcd.print(accl[5]);
+  
   lcd.setCursor(0, 1);
-  lcd.print("Temperature:");
-  lcd.setCursor(0, 2);
+  lcd.print("Lng:");
+  lcd.setCursor(5, 1);
   lcd.print(accl[3]);
-  pacM();//PACMAN function
+  
+  lcd.setCursor(-4, 2);
+  lcd.print("Lat:");
+  lcd.setCursor(1, 2);
+  lcd.print(accl[2]);
+
+   lcd.setCursor(-4, 3);
+  lcd.print("Prs:");
+  lcd.setCursor(1, 3);
+  lcd.print(accl[6]);
+  
+  //pacM();//PACMAN function
   delay(1500);
 }
 void action2() {

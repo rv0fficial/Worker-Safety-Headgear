@@ -141,16 +141,13 @@ int y = 3000;
 
 void setup() { //VOID function
 
- 
  // set up the LCD's number of columns and rows:
  lcd.init();
  lcd.backlight();
-
  // clear the LCD screen:
  lcd.clear();
  
-
-  // get the standing man part on the screen:
+ // get the standing man part on the screen:
     standingMan();
         // delay(y);
     lcd.setCursor(1,0);
@@ -169,30 +166,40 @@ void setup() { //VOID function
    lcd.clear();
    standingMan();
        // delay(y);
-    lcd.setCursor(5,1);
-    lcd.print("Please");
 
-   lcd.setCursor(6-4,2);//Changed row
+   //Aditinally added line(----)
+   lcd.setCursor(0,0);
+   lcd.print("---------------");
+   lcd.setCursor(0-4,3);
+   lcd.print("---------------");
+       
+   lcd.setCursor(3,1);
+   lcd.print("Please");
+   lcd.setCursor(8-4,2);//Changed row
    lcd.print("Wait..."); 
    delay(5000);
         lcd.clear();
 
   //start the Man animation:
-      // run to the the right:
+     // run to the the right:
         runningManR();
-      // slip to the right:
+     // slip to the right:
         ManslipR();
-      // now run to the left:
+     // now run to the left:
         runningManL();
-      // slip to the left:
+     // slip to the left:
         ManslipL();
 
-    //lcd.init();
-    //lcd.backlight();
+    //Aditinally added line(----)
+    lcd.setCursor(0,0);
+    lcd.print("---------------");
+    lcd.setCursor(0-4,3);
+    lcd.print("---------------");
+    
     lcd.setCursor(4, 1);
     lcd.print("Receive row");
-    lcd.setCursor(4, 2);
-    lcd.print("ready");
+    lcd.setCursor(4-4, 2);
+    lcd.print("ready!");
      delay(2000);
 
      radio.begin(); // Start the NRF24L01
@@ -253,6 +260,14 @@ void runningManR() {
   int f = a + 5;
   int g = a + 6;
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, stepB1);
   lcd.createChar(2, stepB2);
   lcd.createChar(3, stepB3);
@@ -273,6 +288,14 @@ void runningManR() {
   lcd.write(6);
   delay(x);
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, stepC1);
   lcd.createChar(2, stepC2);
   lcd.createChar(3, stepC3);
@@ -293,6 +316,14 @@ void runningManR() {
   lcd.write(6);
   delay(x);
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, stepB1);
   lcd.createChar(2, stepB2);
   lcd.createChar(3, stepB3);
@@ -313,6 +344,14 @@ void runningManR() {
   lcd.write(6);
   delay(x);
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, stepD1);
   lcd.createChar(2, stepD2);
   lcd.createChar(3, stepD3);
@@ -341,6 +380,14 @@ void ManslipR(){
   int b = a + 1;
   int c = a + 2;
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, slipA1);
   lcd.createChar(2, slipA2);
   lcd.createChar(3, slipA3);
@@ -361,6 +408,14 @@ void ManslipR(){
   lcd.write(6);
   delay(x);
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, slipB1);
   lcd.createChar(2, slipB2);
   lcd.createChar(3, slipB3);
@@ -411,6 +466,14 @@ void runningManL(){
   int f = a - 5;
   int g = a - 6;
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, stepE1);
   lcd.createChar(2, stepE2);
   lcd.createChar(3, stepE3);
@@ -431,6 +494,14 @@ void runningManL(){
   lcd.write(6);
   delay(x);
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, stepF1);
   lcd.createChar(2, stepF2);
   lcd.createChar(3, stepF3);
@@ -451,6 +522,14 @@ void runningManL(){
   lcd.write(6);
   delay(x);
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, stepE1);
   lcd.createChar(2, stepE2);
   lcd.createChar(3, stepE3);
@@ -471,6 +550,14 @@ void runningManL(){
   lcd.write(6);
   delay(x);
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, stepG1);
   lcd.createChar(2, stepG2);
   lcd.createChar(3, stepG3);
@@ -499,6 +586,14 @@ void ManslipL(){
   int b = a + 1;
   int c = a + 2;
   lcd.clear();
+
+  //Aditinally added line(----)
+  //Aditinally added word(Almost there)
+  lcd.setCursor(0,0);
+  lcd.print("-----Almost----"); 
+  lcd.setCursor(-4,3);
+  lcd.print("-----there-----");
+  
   lcd.createChar(1, slipD1);
   lcd.createChar(2, slipD2);
   lcd.createChar(3, slipD3);
@@ -519,6 +614,9 @@ void ManslipL(){
   lcd.write(6);
   delay(x);
   lcd.clear();
+  
+  //In this place didn't add any charaters as before.(Almostthere, ---)
+  
   lcd.createChar(1, slipE1);
   lcd.createChar(2, slipE2);
   lcd.createChar(3, slipE3);
@@ -641,19 +739,49 @@ void executeAction() {
 
 void action1() {
   lcd.clear();
+  
   lcd.print("  > 1st Page <");
   lcd.setCursor(0, 1);
   lcd.print("Temperature:");
   lcd.setCursor(0, 2);
   lcd.print(accl[3]);
-
+  pacM();//PACMAN function
   delay(1500);
 }
 void action2() {
   lcd.clear();
+  
   lcd.print("  > 2nd Page <");
-   lcd.setCursor(0, 1);
+  lcd.setCursor(0, 1);
   lcd.print("NTP/22/27");
+  pacM();//PACMAN function
   delay(1500);
 }
 
+//PACMAN function
+void pacM() {
+
+uint8_t pacman[8] = {0b00000,0b00000,0b01110,0b11011,0b11111,0b01110,0b00000,0b00000};
+uint8_t pacmanOpen[] = {0b00000,0b00000,0b01110,0b11011,0b11100,0b01110,0b00000,0b00000};
+uint8_t dot[] = {0b00000,0b00000,0b00000,0b00110,0b00110,0b00000,0b00000,0b00000};
+
+  lcd.createChar(1, pacman);
+  lcd.createChar(2, dot);
+  //lcd.begin(20, 4);
+
+ for (int i =-2 ; i < 10; i++) {
+    lcd.setCursor(i, 3);
+    lcd.print("\1");
+    for (int j = i + 1; j < 10; j++) {
+      lcd.setCursor(j, 3);
+      lcd.print("\2");
+    }
+    lcd.createChar(1, pacman);
+    delay(200);
+    lcd.createChar(1, pacmanOpen);
+    delay(200);
+    lcd.setCursor(i, 3);
+    lcd.print(" ");
+  }
+  //delay(1000);
+}

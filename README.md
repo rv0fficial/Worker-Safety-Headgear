@@ -14,6 +14,9 @@ This project comprises two primary components: the Helmet Unit and the Control U
 
 The Control Unit predominantly functions as a receiver, while the Helmet Units primarily act as transmitters, relaying location data and other pertinent information. Notably, all three units in the system can operate interchangeably as both transmitters and receivers, showcasing a versatile communication network. This GitHub repository provides the codebase and documentation for seamless understanding and utilization of the project.
 
+![Screenshot 2023-12-16 221853](https://github.com/rv0fficial/Worker-Safety-Headgear/assets/147927710/35e82e96-8352-42c5-9354-a9ad516fff96)
+![Screenshot 2023-12-16 221859](https://github.com/rv0fficial/Worker-Safety-Headgear/assets/147927710/aae75f61-da78-45c9-bf26-7f5fe189941b)
+
 **Technologies, Software, and Main Hardware Components Used**
 
 **RF Wireless Technology**

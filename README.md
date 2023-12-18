@@ -1,5 +1,5 @@
 
-# Project Title
+# Safety Headgear for Underground Tunnel Workers
 
 The project centers on crafting a safety headgear tailored for underground tunnel workers. Key features include real-time location tracking and monitoring of temperature, pressure, and air quality. The primary goal is to enhance worker safety in the face of potential hazards like temperature fluctuations, pressure changes, or exposure to gases during tunneling incidents. Wireless communication facilitates connectivity between tunnel workers and the external world, with GPS technology ensuring precise location tracking for emergency response. The design prioritizes portability, cost-effectiveness, and durability to meet the specific needs of underground tunnel workers.
 
@@ -13,9 +13,6 @@ The project centers on crafting a safety headgear tailored for underground tunne
 This project comprises two primary components: the Helmet Unit and the Control Unit. Arduino is the cornerstone for developing our mining tracking and safety helmet system. The key objectives involve acquiring real-time data such as location, temperature, air quality, and pressure. A robust communication system has been established between the underground miners' safety helmets and the main control unit situated on the ground surface. The programming for the entire system is done using the C programming language.
 
 The Control Unit predominantly functions as a receiver, while the Helmet Units primarily act as transmitters, relaying location data and other pertinent information. Notably, all three units in the system can operate interchangeably as both transmitters and receivers, showcasing a versatile communication network. This GitHub repository provides the codebase and documentation for seamless understanding and utilization of the project.
-
-![Screenshot 2023-12-16 221853](https://github.com/rv0fficial/Worker-Safety-Headgear/assets/147927710/35e82e96-8352-42c5-9354-a9ad516fff96)
-![Screenshot 2023-12-16 221859](https://github.com/rv0fficial/Worker-Safety-Headgear/assets/147927710/aae75f61-da78-45c9-bf26-7f5fe189941b)
 
 **Technologies, Software, and Main Hardware Components Used**
 
@@ -82,6 +79,8 @@ Leveraging the I2C module simplifies LCD display control, streamlining communica
 To ensure continuous operation underground, rechargeable batteries and power banks with a capacity of 10,000mAh and 5V are used. The system can run for approximately 27 hours, providing an alternative power source in case of a power failure.
 
 ## Hardware Implementation
+![WhatsApp Image 2023-12-18 at 3 03 48 PM](https://github.com/rv0fficial/Worker-Safety-Headgear/assets/147927710/3704b529-6411-4a59-9468-470d989b4665)
+![WhatsApp Image 2023-12-18 at 3 06 58 PM](https://github.com/rv0fficial/Worker-Safety-Headgear/assets/147927710/0c24ede4-cf21-495a-8412-5669c67ae67f)
 
 **Helmet Unit Component Connections to Arduino:**
 

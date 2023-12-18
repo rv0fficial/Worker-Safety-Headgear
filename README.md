@@ -79,8 +79,6 @@ Leveraging the I2C module simplifies LCD display control, streamlining communica
 To ensure continuous operation underground, rechargeable batteries and power banks with a capacity of 10,000mAh and 5V are used. The system can run for approximately 27 hours, providing an alternative power source in case of a power failure.
 
 ## Hardware Implementation
-![WhatsApp Image 2023-12-18 at 3 03 48 PM](https://github.com/rv0fficial/Worker-Safety-Headgear/assets/147927710/3704b529-6411-4a59-9468-470d989b4665)
-![WhatsApp Image 2023-12-18 at 3 06 58 PM](https://github.com/rv0fficial/Worker-Safety-Headgear/assets/147927710/0c24ede4-cf21-495a-8412-5669c67ae67f)
 
 **Helmet Unit Component Connections to Arduino:**
 
@@ -120,6 +118,5 @@ To ensure continuous operation underground, rechargeable batteries and power ban
   - SCL (Serial Clock Line): A5
 
 ## Demo
-
 Insert gif or link to demo
 
